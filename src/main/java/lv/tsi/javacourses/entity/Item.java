@@ -13,12 +13,6 @@ public class Item {
     @Column(nullable = false,length = 1000)
     private String description;
 
-    @Column
-    private Long category_ID;
-    @Column
-    private String categoryDescription;
-
-
     @OneToOne
     private Category category;
     @Column
@@ -28,13 +22,7 @@ public class Item {
     @Column
     private  String producerName;
 
-    public String getCategoryDescription() {
-        return categoryDescription;
-    }
 
-    public void setCategoryDescription(String categoryDescription) {
-        this.categoryDescription = categoryDescription;
-    }
 
     public String getProducerName() {
         return producerName;
@@ -76,13 +64,7 @@ public class Item {
         this.description = description;
     }
 
-    public Long getCategory_ID() {
-        return category_ID;
-    }
 
-    public void setCategory_ID(Long category_ID) {
-        this.category_ID = category_ID;
-    }
 
     public BigDecimal getPrice() {
         return price;

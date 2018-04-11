@@ -48,15 +48,20 @@ public class ItemSearchForm implements Serializable{
         setSearchResult(q.getResultList());
         */
         Query q = em.createQuery("SELECT i FROM Item i WHERE " +
-                "UPPER(i.category.name) LIKE :category " +
-                "AND UPPER(i.producerName) LIKE :producerItem");
+                "i.category = :category ");
+        //+
+        //       "AND UPPER(i.producerName) LIKE :producerItem");
 
       //  String categoryItem = "%" + getCategoryItem().toUpperCase() + "%";
       //  String producerItem = "%" + getProducerItem().toUpperCase() + "%";
         q.setParameter("category", category);
 
-        q.setParameter("producerItem", producerItem);
+      //  q.setParameter("producerItem", producerItem);
         setSearchResult(q.getResultList());
+        if (q.getResultList().size() == 0) {
+            System.out.println("Nothing is found");
+        }
+
     }
 
 
