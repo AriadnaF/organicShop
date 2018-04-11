@@ -7,7 +7,9 @@
 
 <ui:composition template="/WEB-INF/template.xhtml">
     <ui:define name="content">
-
+        <f:metadata>
+            <f:viewAction action="#{itemSearchForm.prepareCategories}"/>
+        </f:metadata>
         <h:form>
             <div class="w3-row w3-margin-bottom w3-margin-top">
                 <div class="w3-right w3-col w3-container" style="width: 175px">
@@ -19,9 +21,12 @@
                     </h:commandButton>
                 </div>
                 <div class="w3-rest w3-container">
-                    <h:inputText id="categoryItem" value="#{itemSearchForm.categoryItem}" style="width: 100%"
-                                 styleClass="w3-input w3-border"/>
+
+                <h:selectOneMenu value="#{itemSearchForm.categoryItem}">
+                    <f:selectItems value="#{itemSearchForm.categorySearch}" />
+                </h:selectOneMenu>
                 </div>
+
                 <div class="w3-rest w3-container">
                     <h:inputText id="producerItem" value="#{itemSearchForm.producerItem}" style="width: 100%"
                                  styleClass="w3-input w3-border"/>

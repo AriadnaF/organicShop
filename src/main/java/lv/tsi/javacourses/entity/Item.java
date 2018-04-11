@@ -1,9 +1,6 @@
 package lv.tsi.javacourses.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -15,10 +12,15 @@ public class Item {
     private String code;
     @Column(nullable = false,length = 1000)
     private String description;
+
     @Column
     private Long category_ID;
     @Column
     private String categoryDescription;
+
+
+    @OneToOne
+    private Category category;
     @Column
     private BigDecimal price;
     @Column
@@ -36,6 +38,14 @@ public class Item {
 
     public String getProducerName() {
         return producerName;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public void setProducerName(String producerName) {
