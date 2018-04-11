@@ -2,14 +2,15 @@ package lv.tsi.javacourses.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Order {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne
-    private Item item;
+    @ManyToMany
+    private List<Item> item;
     @ManyToOne
     private User user;
     @Column
@@ -27,11 +28,11 @@ public class Order {
         this.id = id;
     }
 
-    public Item getItem() {
+    public List<Item> getItem() {
         return item;
     }
 
-    public void setItem(Item item) {
+    public void setItem(List<Item> item) {
         this.item = item;
     }
 

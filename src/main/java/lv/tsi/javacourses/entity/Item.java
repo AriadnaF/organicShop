@@ -13,7 +13,7 @@ public class Item {
     @Column(nullable = false,length = 1000)
     private String description;
 
-    @OneToOne
+    @ManyToOne
     private Category category;
     @Column
     private BigDecimal price;
