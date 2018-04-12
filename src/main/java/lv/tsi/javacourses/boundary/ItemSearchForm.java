@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,10 +28,11 @@ public class ItemSearchForm implements Serializable{
     private List<Category> categorySearch;
 
     private Category category;
+    private Long categoryId;
 
     @Transactional
     public void prepareCategories() {
-        categorySearch = em.createQuery("select c.name from Category c").getResultList();
+        categorySearch = em.createQuery("select c from Category c").getResultList();
     }
 
     @Transactional
@@ -47,23 +49,24 @@ public class ItemSearchForm implements Serializable{
         q.setParameter("producerItem", producerItem);
         setSearchResult(q.getResultList());
         */
-        Query q = em.createQuery("SELECT i FROM Item i WHERE " +
-                "i.category = :category ");
-        //+
-        //       "AND UPPER(i.producerName) LIKE :producerItem");
-
-      //  String categoryItem = "%" + getCategoryItem().toUpperCase() + "%";
-      //  String producerItem = "%" + getProducerItem().toUpperCase() + "%";
-        q.setParameter("category", category);
-
-      //  q.setParameter("producerItem", producerItem);
-        setSearchResult(q.getResultList());
-        if (q.getResultList().size() == 0) {
+        TypedQuery<Item> q = em.createQuery("SELECT i FROM Item i WHERE " +
+        "i.category.id = :categoryId", Item.class);
+        q.setParameter("categoryId",categoryId);
+        List<Item> resultList = q.getResultList();
+        setSearchResult(resultList);
+        if (resultList.isEmpty()) {
             System.out.println("Nothing is found");
         }
 
     }
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public String getCategoryItem() {
         return categoryItem;

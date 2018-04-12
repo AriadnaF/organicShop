@@ -22,8 +22,12 @@
                 </div>
                 <div class="w3-rest w3-container">
 
-                <h:selectOneMenu value="#{itemSearchForm.category}">
-                    <f:selectItems value="#{itemSearchForm.categorySearch}" />
+                <h:selectOneMenu id="categoryItem" value="#{itemSearchForm.categoryId}">
+                    <f:selectItems value="#{itemSearchForm.categorySearch}"
+                    var="cat"
+                    itemValue="#{cat.id}"
+                    itemLabel="cat.name"
+                    />
                 </h:selectOneMenu>
                 </div>
 
